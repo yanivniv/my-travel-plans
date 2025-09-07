@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Trading Bot Dashboard</title>
+    <meta name="description" content="Trading Bot Dashboard">
+    <style>
+        body { font-family: sans-serif; margin: 2em; }
+        .container { max-width: 800px; margin: auto; }
+        .results-table { border-collapse: collapse; width: 100%; margin-bottom: 2em; }
+        .results-table th, .results-table td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        .results-table th { background-color: #f2f2f2; }
+        img { max-width: 100%; height: auto; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Trading Bot Dashboard</h1>
+
+        <h2>Backtest Performance</h2>
+
+        {% if results %}
+        <table class="results-table">
+            <tr>
+                <th>Initial Portfolio Value</th>
+                <td>{{ results.initial_cash }}</td>
+            </tr>
+            <tr>
+                <th>Final Portfolio Value</th>
+                <td>{{ results.final_value }}</td>
+            </tr>
+            <tr>
+                <th>Total Return</th>
+                <td>{{ results.total_return }}</td>
+            </tr>
+            <tr>
+                <th>Total Trades</th>
+                <td>{{ results.total_trades }}</td>
+            </tr>
+        </table>
+        {% else %}
+            <p>Could not retrieve backtest results.</p>
+        {% endif %}
+
+        <h2>Portfolio Performance Over Time</h2>
+
+        {% if plot_image %}
+            <img src="{{ url_for('static', filename='portfolio_performance.png') }}" alt="Portfolio Performance Plot">
+        {% else %}
+            <p>Could not load performance plot.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
